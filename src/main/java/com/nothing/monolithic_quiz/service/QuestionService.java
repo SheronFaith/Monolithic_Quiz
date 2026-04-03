@@ -43,4 +43,28 @@ public class QuestionService {
         }
         return new ResponseEntity<>("Success",HttpStatus.CREATED);
     }
+
+    public ResponseEntity<String> deleteQuestion(int id) {
+        try{
+            questionRepository.deleteById(id);
+            return new ResponseEntity<>("Success",HttpStatus.OK);
+        }catch (Exception e){
+            e.getStackTrace();
+            return new ResponseEntity<>("Failed",HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<Question> getQuestionById(int id) {
+        return new ResponseEntity<>(questionRepository.findById(id).orElseThrow(()-> new RuntimeException("Question not found: "+id)),HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> updateQuestion(Question question) {
+        try {
+            questionRepository.save(question);
+        }catch (Exception e){
+            e.getStackTrace();
+            return new ResponseEntity<>("Failed",HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Success",HttpStatus.OK);
+    }
 }

@@ -24,6 +24,12 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Question> getQuestionById(@PathVariable int id){
+        return questionService.getQuestionById(id);
+    }
+
+
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
         return questionService.getQuestionsByCategory(category);
@@ -34,5 +40,14 @@ public class QuestionController {
         return questionService.addQuestion(question);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteQuestion(@PathVariable int id){
+        return questionService.deleteQuestion(id);
+    }
+
+    @PutMapping("update")
+    public ResponseEntity<String> updateQuestion(@RequestBody Question question){
+        return questionService.updateQuestion(question);
+    }
 
 }
